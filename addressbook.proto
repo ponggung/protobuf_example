@@ -1,0 +1,38 @@
+/* 這是一個簡單的 Protocol 資料格式示範，
+   若要在 .proto 檔案中加入註解，
+   可使用 C/C++ 的註解語法。              */
+
+// Protocol 資料格式版本
+syntax = "proto2";
+
+// 套件名稱
+package tutorial;
+
+// 定義資料格式
+message Person {
+  // 基本資料 
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+
+  // 列舉型別
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  // 定義另外一個 message
+  message PhoneNumber {
+    required string number = 1;
+    optional PhoneType type = 2 [default = HOME];
+  }
+
+  // 多筆 PhoneNumber 資料
+  repeated PhoneNumber phones = 4;
+}
+
+message AddressBook {
+  // 多筆 Person 資料
+  repeated Person people = 1;
+}
