@@ -1,0 +1,100 @@
+syntax = "proto3";
+package protobuf;
+
+option java_package = "jst.java.mservice.catcher.protobuf";
+
+message ApHdcArr {
+	repeated ApHdc aphdc = 1;
+}
+
+message ApHdc {
+	string source = 1; //來源
+	string game_class = 2; //球種
+	string game_type = 3; //全場、半場
+	string status = 4; // 沒用，現在拿來放ip?
+	string event_time = 5; //賽事時間，台灣時間為主（GMT +8）
+	string source_updatetime = 6; //更新時間（抓取資料時間）
+	string live = 7; //是否為走地、滾球
+	information information = 8; //球賽資訊
+	score score = 9; // 比分
+	i18nHdc i18nHdcMain = 10; //國際盤口，中線盤
+	repeated i18nHdc i18nHdcMulti = 11; //國際盤口，多盤口
+	twZF twZF = 12; //台盤讓分（音譯）
+	typeDS twDS = 13; //台盤大小（音譯）
+	onetwo de = 14; //獨贏盤（音譯）
+	onetwo sd = 15; //單雙盤（single double）
+	Esre esre = 16; //一輸二贏盤（音譯）
+	string draw = 17; //台盤和局（通常只有足球有）
+}
+
+
+message Esre {
+	whichTeam let = 1;
+	string home = 2;
+	string away = 3;
+}
+//基本盤口，只放主客隊賠率
+message onetwo {
+	string home = 1;
+	string away = 2;
+}
+
+message twZF {
+	typeZF homeZF = 1;
+	typeZF awayZF = 2;
+}
+
+message i18nHdc {
+	oneXtwo oxt = 1; //國際盤1x2
+	i18nZF i18nZF = 2;
+	typeDS i18nDS = 3;
+}
+
+message i18nZF {
+	whichTeam whichTeam = 1; //球頭
+	typeZF homeZF = 2;
+	typeZF awayZF = 3;
+}
+//大小盤口
+message typeDS {
+	string line = 1;
+	string over = 2;
+	string under = 3;
+}
+//讓分盤口
+message typeZF {
+	string line = 1;
+	string odds = 2;
+}
+//球頭
+enum whichTeam {
+	none = 0;
+	home = 1;
+	away = 2;
+}
+//國際盤1x2，主贏、客贏、和局（通常只有足球有）
+message oneXtwo {
+	string homeWin = 1;
+	string awayWin = 2;
+	string draw = 3;
+}
+
+message score {
+	string home = 1;
+	string away = 2;
+}
+
+message information {
+	string league = 1;
+	string game_title = 2;
+	infoHA home = 3;
+	infoHA away = 4;
+}
+
+message infoHA {
+	string rot_id = 1;
+	string team_name = 2;
+	string pitcher = 3;
+}
+
+
